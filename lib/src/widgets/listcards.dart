@@ -38,16 +38,39 @@ class _CardsListState extends State<CardsList> {
         horario: '05:00 PM',
         icon: 'icons/degustacao-de-vinho.png',
         checked: false),
+    Tarefa(
+        nome: 'Correr',
+        horario: '10:00 AM',
+        icon: 'icons/caminhada.png',
+        checked: false),
+    Tarefa(
+        nome: 'Ler',
+        horario: '02:30 PM',
+        icon: 'icons/escrita.png',
+        checked: true),
+    Tarefa(
+        nome: 'Cozinhar',
+        horario: '05:00 PM',
+        icon: 'icons/degustacao-de-vinho.png',
+        checked: false),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: tarefas.length,
-      itemBuilder: (BuildContext context, int index) {
-        return MyCard(
-            nome: tarefas[index].nome, horario: tarefas[index].horario, icon: tarefas[index].icon);
-      },
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: MediaQuery.of(context).size.height * 0.5,
+      child: ListView.builder(
+        itemCount: tarefas.length,
+        itemBuilder: (BuildContext context, int index) {
+          return MyCard(
+            nome: tarefas[index].nome,
+            horario: tarefas[index].horario,
+            icon: tarefas[index].icon,
+            checked: tarefas[index].checked,
+          );
+        },
+      ),
     );
   }
 }
