@@ -67,119 +67,14 @@ class _TesteState extends State<Teste> {
   }
 
   void _openModal(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 600.0,
-          padding: EdgeInsets.all(16.0),
-          child: Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Add Task',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Task Title'),
-                  onChanged: (value) {
-                    setState(() {
-                      _taskTitle = value;
-                    });
-                  },
-                ),
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => _selectTime(context),
-                        child: InputDecorator(
-                          decoration: InputDecoration(
-                            labelText: 'Time',
-                            border: OutlineInputBorder(),
-                          ),
-                          child: Text(
-                            _selectedTime.format(context),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    TextButton(
-                      onPressed: () => _selectTime(context),
-                      child: Text('Select Time'),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    Wrap(children: [
-                      for (var day in [
-                        'Monday',
-                        'Tuesday',
-                        'Wednesday',
-                        'Thursday',
-                        'Friday',
-                        'Saturday',
-                        'Sunday'
-                      ])
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                value: day == 'Monday'
-                                    ? _monday
-                                    : day == 'Tuesday'
-                                        ? _tuesday
-                                        : day == 'Wednesday'
-                                            ? _wednesday
-                                            : day == 'Thursday'
-                                                ? _thursday
-                                                : day == 'Friday'
-                                                    ? _friday
-                                                    : day == 'Saturday'
-                                                        ? _saturday
-                                                        : _sunday,
-                                onChanged: (value) => _toggleDay(value!, day),
-                              ),
-                              Text(day),
-                            ],
-                          ),
-                        ),
-                    ]),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _notification,
-                      onChanged: (value) {
-                        setState(() {
-                          _notification = value!;
-                        });
-                      },
-                    ),
-                    Text('Enable Notification'),
-                  ],
-                ),
-                SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    _addTask();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Add Task'),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => Dialog(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.7,
+              ),
+            ));
   }
 
   @override

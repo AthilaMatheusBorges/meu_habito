@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/button_pupple.dart';
 import '../widgets/listcards.dart';
 import '../widgets/modal_add_tarefa.dart';
-import '../widgets/teste.dart';
+import '../widgets/rascunho.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,15 +11,7 @@ class HomePage extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.deepPurple,
-              background: const Color.fromARGB(255, 238, 245, 253)),
-          useMaterial3: true,
-        ),
-        home: Scaffold(
+    return Scaffold(
           appBar: AppBar(title: const Text('Flutter Card com Ícone')),
           // ignore: prefer_const_constructors
           body: Center(
@@ -29,6 +21,6 @@ class HomePage extends StatelessWidget {
               //Container(height: 600.0, child: Teste())
             ]),
           ),
-        ));
+        );
   }
 }

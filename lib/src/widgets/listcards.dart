@@ -12,15 +12,6 @@ class CardsList extends StatefulWidget {
 }
 
 class _CardsListState extends State<CardsList> {
-  // List<Tarefa> lista_tarefas = {
-  //   {'nome':'correr',
-  //    'horario' : '22:00:00',
-  //    'icon' : 'icons/caminhada.png',
-  //    'checked': false
-  //   }
-  // };
-
-  //List<Tarefa> list = [];
 
   final List<Tarefa> tarefas = [
     Tarefa(
@@ -37,12 +28,12 @@ class _CardsListState extends State<CardsList> {
         nome: 'Cozinhar',
         horario: '05:00 PM',
         icon: 'icons/degustacao-de-vinho.png',
-        checked: false),
+        checked: true),
     Tarefa(
         nome: 'Correr',
         horario: '10:00 AM',
         icon: 'icons/caminhada.png',
-        checked: false),
+        checked: true),
     Tarefa(
         nome: 'Ler',
         horario: '02:30 PM',
@@ -54,6 +45,13 @@ class _CardsListState extends State<CardsList> {
         icon: 'icons/degustacao-de-vinho.png',
         checked: false),
   ];
+
+    void setCheckbox(int index) {
+    setState(() {
+      tarefas[index].checked = !tarefas[index].checked;
+      print(tarefas[index].checked);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +66,8 @@ class _CardsListState extends State<CardsList> {
             horario: tarefas[index].horario,
             icon: tarefas[index].icon,
             checked: tarefas[index].checked,
+            index: index,
+            setCard: setCheckbox
           );
         },
       ),

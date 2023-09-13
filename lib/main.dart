@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meu_habito/src/widgets/teste.dart';
 
 import 'src/screens/home_page.dart';
 
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
               seedColor: Colors.deepPurple,
