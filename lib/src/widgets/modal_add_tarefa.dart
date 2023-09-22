@@ -6,6 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:meu_habito/src/widgets/button_pupple.dart';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/tasks.dart';
 
 /// Flutter code sample for [showModalBottomSheet].
 ///
@@ -17,6 +20,9 @@ class ModalAddTarefa extends StatefulWidget {
 }
 
 class _ModalAddTarefaState extends State<ModalAddTarefa> {
+
+  final _form = GlobalKey<FormState>();
+
   //cada bool representa um dia da semana começando pelo domingo
   List<bool> dias = [true, true, true, true, true, true, true];
 
@@ -30,12 +36,14 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
   void setCheckbox(int dia) {
     setState(() {
       dias[dia] = !dias[dia];
-      print(dias);
+      //print(dias);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final Tarefas tasks = Provider.of(context);
+
     return Center(
       child: ButtonPurpple(
         name: 'Nova Tarefa',
@@ -46,11 +54,11 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
               return StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
                   return Dialog(
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.height * 0.7,
                       child: Padding(
-                        padding: EdgeInsets.all(40),
+                        padding: const EdgeInsets.all(40),
                         child: Form(
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -74,8 +82,8 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
                                   ],
                                 ),
                                 TextFormField(
-                                  decoration: InputDecoration(
-                                    labelText: 'Nome',
+                                  decoration: const InputDecoration(
+                                    labelText:  'Nome',
                                   ),
                                 ),
                                 DateTimeField(
@@ -88,11 +96,11 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
                                     );
                                     return DateTimeField.convert(time);
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     labelText: 'Horário',
                                   ),
                                 ),
-                                Text('Frequência:'),
+                                const Text('Frequência:'),
                                 Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -113,7 +121,7 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
                                           dia: 6, setCheckbox: setCheckbox),
                                     ]),
                                 CheckboxListTile(
-                                  title: Text('Ativar notificação.'),
+                                  title: const Text('Ativar notificação.'),
                                   value: checkNotif,
                                   onChanged: (bool? value) {
                                     setState(() {
@@ -125,7 +133,7 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
                                 ),
                                 Text(checkNotif ? 'True' : 'False'),
                                 ButtonPurpple(
-                                    name: 'Adicionar', action: () => {})
+                                    name: 'Adicionar', action: () => {tasks.put(tasks.byIndex(1))})
                               ]),
                         ),
                       ),

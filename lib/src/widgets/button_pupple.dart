@@ -21,6 +21,12 @@ class _ButtonPurpple extends State<ButtonPurpple> {
       width: 169.0,
       height: 54.0,
       decoration: const BoxDecoration(
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromARGB(137, 73, 72, 72),
+                blurRadius: 5.0,
+                offset: Offset(2.0, 1.0))
+          ],
           gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment(5.0, 1.0),

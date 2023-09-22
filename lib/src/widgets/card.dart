@@ -1,37 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:meu_habito/models/tarefa_model.dart';
 
 class MyCard extends StatefulWidget {
-  const MyCard(
-      {super.key,
-      required this.nome,
-      required this.horario,
-      required this.icon,
-      required this.checked,
-      required this.index,
-      required this.setCard});
+  const MyCard({super.key,
+      required this.tarefa});
 
-  final String nome;
-  final String horario;
-  final String icon;
-  final bool checked;
-  final int index;
-  final setCard;
+  //final setCard;
+  final Tarefa tarefa;
 
   @override
   State<MyCard> createState() => _MyCard();
 }
 
 class _MyCard extends State<MyCard> {
+  
+  
   @override
   Widget build(BuildContext context) {
-    bool _checked = widget.checked;
-
+    Tarefa tarefa = widget.tarefa;
+    bool _checked = tarefa.checked;
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
       height: 100.0,
       child: GestureDetector(
         onTap: () {
-          widget.setCard(widget.index);
+          //widget.setCard(widget.index);
         },
         child: Card(
           margin: EdgeInsets.only(bottom: 20.0),
@@ -65,7 +58,7 @@ class _MyCard extends State<MyCard> {
                 ),
                 child: !_checked
                     ? Image.asset(
-                        widget.icon,
+                        tarefa.icon,
                         width: 30.0,
                         height: 30.0,
                       )
@@ -77,18 +70,18 @@ class _MyCard extends State<MyCard> {
               Container(
                 width: 120.0,
                 child: Text(
-                  widget.nome,
+                  tarefa.nome,
                   style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       color: _checked
                           ? Color(0xFF2AA50C)
                           : Color.fromARGB(255, 59, 69, 245),
-                      fontFamily: 'MontSerrat'),
+                      fontFamily: 'MontSerrat',),
                 ),
               ),
               Text(
-                widget.horario,
+                tarefa.horario,
                 style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
