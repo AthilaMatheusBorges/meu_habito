@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:meu_habito/models/tarefa_model.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/tasks.dart';
+
 
 class MyCard extends StatefulWidget {
   const MyCard({super.key,
-      required this.tarefa});
+      required this.tarefa,  required this.edit});
 
   //final setCard;
   final Tarefa tarefa;
+  final edit;
 
   @override
   State<MyCard> createState() => _MyCard();
@@ -19,13 +25,23 @@ class _MyCard extends State<MyCard> {
   Widget build(BuildContext context) {
     Tarefa tarefa = widget.tarefa;
     bool _checked = tarefa.checked;
+    bool editCard = widget.edit;
+
+    final Tarefas tasks = Provider.of(context, listen: false);
+    toque(){
+      if(editCard){
+
+          }else{
+              tasks.checkedTask(tarefa.id);
+          };
+    }
+
+
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
       height: 100.0,
       child: GestureDetector(
-        onTap: () {
-          //widget.setCard(widget.index);
-        },
+        onTap: toque,
         child: Card(
           margin: EdgeInsets.only(bottom: 20.0),
           color: Colors.transparent,
@@ -81,7 +97,7 @@ class _MyCard extends State<MyCard> {
                 ),
               ),
               Text(
-                tarefa.horario,
+                DateFormat('HH:mm').format(tarefa.horario),
                 style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,

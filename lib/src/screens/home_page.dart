@@ -15,56 +15,56 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Tarefa> tarefas = [
-    Tarefa(
-        id: '1',
-        nome: 'Correr',
-        horario: '10:00 AM',
-        icon: 'icons/caminhada.png',
-        checked: false,
-        frequencia: [true, false, true, false, true, false, true],
-        notificacao: false),
-    Tarefa(
-        id: '2',
-        nome: 'Ler',
-        horario: '02:30 PM',
-        icon: 'icons/escrita.png',
-        checked: false,
-        frequencia: [true, false, true, false, true, false, true],
-        notificacao: false),
-    Tarefa(
-        id: '3',
-        nome: 'Cozinhar',
-        horario: '05:00 PM',
-        icon: 'icons/degustacao-de-vinho.png',
-        checked: true,
-        frequencia: [true, false, true, false, true, false, true],
-        notificacao: false),
-    Tarefa(
-        id: '4',
-        nome: 'Correr',
-        horario: '10:00 AM',
-        icon: 'icons/caminhada.png',
-        checked: true,
-        frequencia: [true, false, true, false, true, false, true],
-        notificacao: false),
-    Tarefa(
-        id: '5',
-        nome: 'Ler',
-        horario: '02:30 PM',
-        icon: 'icons/escrita.png',
-        checked: true,
-        frequencia: [true, false, true, false, true, false, true],
-        notificacao: false),
-    Tarefa(
-        id: '6',
-        nome: 'Cozinhar',
-        horario: '05:00 PM',
-        icon: 'icons/degustacao-de-vinho.png',
-        checked: false,
-        frequencia: [true, false, true, false, true, false, true],
-        notificacao: false),
-  ];
+  // final List<Tarefa> tarefas = [
+  //   Tarefa(
+  //       id: '1',
+  //       nome: 'Correr',
+  //       horario: '10:00 AM',
+  //       icon: 'icons/caminhada.png',
+  //       checked: false,
+  //       frequencia: [true, false, true, false, true, false, true],
+  //       notificacao: false),
+  //   Tarefa(
+  //       id: '2',
+  //       nome: 'Ler',
+  //       horario: '02:30 PM',
+  //       icon: 'icons/escrita.png',
+  //       checked: false,
+  //       frequencia: [true, false, true, false, true, false, true],
+  //       notificacao: false),
+  //   Tarefa(
+  //       id: '3',
+  //       nome: 'Cozinhar',
+  //       horario: '05:00 PM',
+  //       icon: 'icons/degustacao-de-vinho.png',
+  //       checked: true,
+  //       frequencia: [true, false, true, false, true, false, true],
+  //       notificacao: false),
+  //   Tarefa(
+  //       id: '4',
+  //       nome: 'Correr',
+  //       horario: '10:00 AM',
+  //       icon: 'icons/caminhada.png',
+  //       checked: true,
+  //       frequencia: [true, false, true, false, true, false, true],
+  //       notificacao: false),
+  //   Tarefa(
+  //       id: '5',
+  //       nome: 'Ler',
+  //       horario: '02:30 PM',
+  //       icon: 'icons/escrita.png',
+  //       checked: true,
+  //       frequencia: [true, false, true, false, true, false, true],
+  //       notificacao: false),
+  //   Tarefa(
+  //       id: '6',
+  //       nome: 'Cozinhar',
+  //       horario: '05:00 PM',
+  //       icon: 'icons/degustacao-de-vinho.png',
+  //       checked: false,
+  //       frequencia: [true, false, true, false, true, false, true],
+  //       notificacao: false),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
       // ignore: prefer_const_constructors
       body: Center(
         child: Column(children: [
-          Dash_task(lista: tarefas),
+          Dash_task(lista: tarefas_prov.all),
           CardsList(),
           ModalAddTarefa(),
         ]),

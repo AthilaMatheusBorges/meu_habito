@@ -19,6 +19,20 @@ class Tarefas with ChangeNotifier {
     return _items.values.elementAt(i);
   }
 
+ void checkedTask(String taskId){
+  // Verifique se a chave taskId existe no mapa _items
+  if (_items.containsKey(taskId)) {
+    Tarefa task = _items[taskId]!; // Obtenha a tarefa correspondente ao taskId
+    task.checked = !task.checked;
+    _items.update(taskId, (value) => task);
+    notifyListeners();
+  } else {
+    print("Chave não encontrada no mapa _items.");
+  }
+}
+
+
+
   void put(Tarefa task) {
     if (task == null) {
       return;
@@ -35,14 +49,16 @@ class Tarefas with ChangeNotifier {
     _items.putIfAbsent(
       id,
       () => Tarefa(
-        nome: 'Ler',
-        horario: '02:30 PM',
-        icon: 'icons/escrita.png',
-        checked: false,
-        frequencia: [true, false, true, false, true, false, true],
-        notificacao: false,
+        id: id,
+        nome: task.nome,
+        horario: task.horario,
+        icon: task.icon,
+        checked: task.checked,
+        frequencia: task.frequencia,
+        notificacao: task.notificacao,
       ),
     );
+    print(id);
     notifyListeners();
   }
 }

@@ -39,6 +39,7 @@ dependencies:
   percent_indicator: ^4.0.1
   path: ^1.8.3
   provider:
+  date_field: ^3.0.5
 
 dev_dependencies:
   flutter_test:
