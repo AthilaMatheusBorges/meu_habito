@@ -1,33 +1,42 @@
 import 'package:flutter/material.dart';
 
 class IconSelector extends StatefulWidget {
-  const IconSelector({required this.atualiza});
+   IconSelector({required this.atualiza, required String this.selected});
   final atualiza;
+  String selected;
   @override
   _IconSelectorState createState() => _IconSelectorState();
 }
 
 class _IconSelectorState extends State<IconSelector> {
   final List<String> icons = [
-    'icons/caminhada.png',
-    'icons/croche.png',
-    'icons/de-costura.png',
-    'icons/degustacao-de-vinho.png',
-    'icons/desenhando.png',
-    'icons/escrita.png',
-    'icons/ginastica.png',
-    'icons/observacao-de-passaros.png',
-    'icons/pintura.png',
-    'icons/reparo-do-carro.png',
+    'assets/icons/caminhada.png',
+    'assets/icons/croche.png',
+    'assets/icons/de-costura.png',
+    'assets/icons/degustacao-de-vinho.png',
+    'assets/icons/desenhando.png',
+    'assets/icons/escrita.png',
+    'assets/icons/ginastica.png',
+    'assets/icons/observacao-de-passaros.png',
+    'assets/icons/pintura.png',
+    'assets/icons/reparo-do-carro.png',
     //'icons/caminhada.png',
     // Adicione mais caminhos para os seus ícones aqui
   ];
 
-  String selectedIcon = 'icons/escrita.png';
+
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+
+  String selectedIcon =  widget.selected;
+    // if(widget.selected != ''){
+    //   setState(() {
+    //     selectedIcon = widget.selected;
+    //   });
+    // }
+
+  return SizedBox(
       height: 60,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -51,9 +60,9 @@ class _IconSelectorState extends State<IconSelector> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(4),
-                  child: Container(
-                    height: 50,
-                    width: 50,
+                  child: SizedBox(
+                    height: 55,
+                    width: 55,
                     child: ListTile(
                       //shape: CircleBorder(),
                       //tileColor: Colors.amber,
@@ -62,19 +71,23 @@ class _IconSelectorState extends State<IconSelector> {
                         setState(() {
                           selectedIcon = icons[index];
                           widget.atualiza(icons[index]);
+                          print(selectedIcon);
                         });
                       },
-                      leading: Container(
-                        padding: EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Color.fromARGB(255, 196, 197, 197),
-                            width: 1.0,
+                      leading: SizedBox(
+                        width: 45,
+                        child: Container(
+                          padding: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Color.fromARGB(255, 196, 197, 197),
+                              width: 1.0,
+                            ),
                           ),
-                        ),
-                        child: Image.asset(
-                          icons[index],
+                          child: Image.asset(
+                            icons[index],
+                          ),
                         ),
                       ),
                     ),

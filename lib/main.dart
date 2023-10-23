@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:meu_habito/configs/hive_config.dart';
 import 'package:meu_habito/provider/tasks.dart';
+import 'package:meu_habito/repositories/task_repository.dart';
 import 'package:provider/provider.dart';
 
 import 'src/screens/home_page.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  //await HiveConfig.start();
   runApp(const MyApp());
 }
 
@@ -16,9 +20,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        // ChangeNotifierProvider(
+        //   create: (ctx) => Tarefas(),
+        // ),
         ChangeNotifierProvider(
-          create: (ctx) => Tarefas(),
-        )
+          create: (ctx) => TaskRepository(),
+        ),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

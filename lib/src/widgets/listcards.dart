@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meu_habito/models/tarefa_model.dart';
 import 'package:meu_habito/provider/tasks.dart';
+import 'package:meu_habito/repositories/task_repository.dart';
 import 'package:meu_habito/src/widgets/card.dart';
 import 'package:provider/provider.dart';
 
@@ -12,9 +14,15 @@ class CardsList extends StatefulWidget {
 
 class _CardsListState extends State<CardsList> {
   bool editCard = false;
+  late TaskRepository tarefasRepo;
+
   @override
   Widget build(BuildContext context) {
-    final Tarefas tasks = Provider.of(context);
+    //final Tarefas tasks = Provider.of(context);
+    
+    tarefasRepo = context.watch<TaskRepository>();
+    
+    List<Tarefa> tarefas = tarefasRepo.getListaTarefas();
 
     return Column(
       children: [
@@ -57,12 +65,13 @@ class _CardsListState extends State<CardsList> {
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
-          height: MediaQuery.of(context).size.height * 0.45,
+          height: MediaQuery.of(context).size.height * 0.3,
           child: ListView.builder(
-            itemCount: tasks.count,
+            itemCount: tarefasRepo.count,
             itemBuilder: (BuildContext context, int index) {
               return MyCard(
-                tarefa: tasks.byIndex(index),
+                // tarefa: tasks.byIndex(index),
+                tarefa: tarefas[index],
                 edit: editCard,
               );
             },

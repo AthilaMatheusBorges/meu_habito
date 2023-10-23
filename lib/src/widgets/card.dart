@@ -1,14 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meu_habito/models/tarefa_model.dart';
 import 'package:intl/intl.dart';
+import 'package:meu_habito/repositories/task_repository.dart';
+import 'package:meu_habito/src/widgets/modal_add_tarefa.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/tasks.dart';
 
-
 class MyCard extends StatefulWidget {
-  const MyCard({super.key,
-      required this.tarefa,  required this.edit});
+  const MyCard({super.key, required this.tarefa, required this.edit});
 
   //final setCard;
   final Tarefa tarefa;
@@ -19,29 +20,55 @@ class MyCard extends StatefulWidget {
 }
 
 class _MyCard extends State<MyCard> {
-  
-  
+  late TaskRepository tarefas;
+  bool verifInit = false;
+  bool _checked = false;
+   
   @override
   Widget build(BuildContext context) {
     Tarefa tarefa = widget.tarefa;
-    bool _checked = tarefa.checked;
-    bool editCard = widget.edit;
+    
+    tarefas = context.watch<TaskRepository>();
 
-    final Tarefas tasks = Provider.of(context, listen: false);
-    toque(){
-      if(editCard){
+    DateTime agora = DateTime.now();
+    String dataFormatada = DateFormat('yyyy-MM-dd').format(agora);
 
-          }else{
-              tasks.checkedTask(tarefa.id);
-          };
+    verificaTask() async {
+      bool result = await tarefas.isTaskInFrequency(tarefa.id, dataFormatada);
+      setState(() {
+        _checked = result;
+      });
     }
 
+    if(!verifInit) {
+      verificaTask();
+      verifInit = true;
+    }
+
+    bool editCard = widget.edit;
+
+    toque() {
+      if (_checked) {
+        tarefas.deleteTaskFromFrequency(tarefa.id, dataFormatada);
+      } else {
+        tarefas.tarefaFeita(tarefa.id, dataFormatada);
+      }
+        verificaTask();
+    }
 
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
       height: 100.0,
       child: GestureDetector(
-        onTap: toque,
+        onTap: () {
+          editCard
+              ? showDialog(
+                  context: context,
+                  builder: (BuildContext dialogContext) =>
+                      ModalAddTarefa(taskId: tarefa.id),
+                )
+              : toque(); 
+        },
         child: Card(
           margin: EdgeInsets.only(bottom: 20.0),
           color: Colors.transparent,
@@ -88,16 +115,17 @@ class _MyCard extends State<MyCard> {
                 child: Text(
                   tarefa.nome,
                   style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      color: _checked
-                          ? Color(0xFF2AA50C)
-                          : Color.fromARGB(255, 59, 69, 245),
-                      fontFamily: 'MontSerrat',),
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: _checked
+                        ? Color(0xFF2AA50C)
+                        : Color.fromARGB(255, 59, 69, 245),
+                    fontFamily: 'MontSerrat',
+                  ),
                 ),
               ),
               Text(
-                DateFormat('HH:mm').format(tarefa.horario),
+                _formataHora(tarefa.horario),
                 style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -111,5 +139,10 @@ class _MyCard extends State<MyCard> {
         ),
       ),
     );
+  }
+
+  _formataHora(String hora) {
+    DateTime atual = DateFormat("yyyy-MM-dd HH:mm").parse(hora);
+    return DateFormat.Hm().format(atual);
   }
 }

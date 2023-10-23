@@ -27,6 +27,7 @@ class DB {
   _onCreate(db, versao) async {
     await db.execute(_tarefas);
     await db.execute(_dias);
+    print('db criado');
     // await db.execute(_historico);
     // await db.insert('conta', {'saldo': 0});
   }
@@ -35,17 +36,21 @@ class DB {
     CREATE TABLE tarefas (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nome TEXT,
-      horario TIME,
+      horario TEXT,
       icone TEXT,
-      notificacao TEXT,
-      frequencia TEXT,
+      notificacao BOOLEAN,
+      frequencia TEXT
     );
   ''';
 
   String get _dias => '''
-    CREATE TABLE dias (
-      data DATE PRIMARY KEY,
-    );
-  ''';
+  CREATE TABLE frequencia_tarefas (
+    id INTEGER PRIMARY KEY,
+    tarefa_id INTEGER,
+    data DATE,
+    FOREIGN KEY (tarefa_id) REFERENCES tarefas (id)
+  )
+''';
+
   
 }

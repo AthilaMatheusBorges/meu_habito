@@ -40,6 +40,8 @@ dependencies:
   path: ^1.8.3
   provider:
   date_field: ^3.0.5
+  path_provider :
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -63,9 +65,18 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
     # - icons/adicionar.svg
-    # - icons/caminhada.png
+    - assets/icons/caminhada.png
+    - assets/icons/croche.png
+    - assets/icons/de-costura.png
+    - assets/icons/degustacao-de-vinho.png
+    - assets/icons/desenhando.png
+    - assets/icons/escrita.png
+    - assets/icons/ginastica.png
+    - assets/icons/observacao-de-passaros.png
+    - assets/icons/pintura.png
+    - assets/icons/reparo-do-carro.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
