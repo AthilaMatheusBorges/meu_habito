@@ -10,6 +10,7 @@ import 'package:meu_habito/src/widgets/button_pupple.dart';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:meu_habito/src/widgets/icon_selector.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/tasks.dart';
@@ -91,233 +92,304 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
       _loadFormData(tarefas.byIndex(widget.taskId));
     }
 
-    return Center(child: StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
-        return Dialog(
-          child: Container(
-            //width: MediaQuery.of(context).size.width * 0.95,
-            height: MediaQuery.of(context).size.height * 0.85,
-            color: Color.fromARGB(255, 238, 245, 253),
-            child: Padding(
-              padding: const EdgeInsets.all(25),
-              child: Form(
-                key: _form,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.taskId == 1000
-                                ? 'Adicione uma nova tarefa'
-                                : 'Editar tarefa',
-                            style: TextStyle(
-                                fontFamily: 'MontSerrat',
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF3B45F5)),
-                          ),
-                          IconButton(
-                              padding: EdgeInsets.all(0),
-                              color: Color(0xFFE87474),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(Icons.close)),
-                        ],
-                      ),
-                      IconSelector(
-                        atualiza: atualizaIcon,
-                        selected: this.selectedIcon,
-                      ),
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFFE4E5FE), // Cor de fundo roxo
-                        ),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: TextFormField(
-                              initialValue: widget.taskId == 1000
-                                  ? ''
-                                  : _formData['nome'],
-                              style: TextStyle(
-                                color: Color(0xFF3B45F5),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                labelStyle: TextStyle(
-                                  fontFamily: 'MontSerrat',
-                                  color: Color(0xFF6C73F5),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
-                                labelText: 'Nome',
-                              ),
-                              onSaved: (value) => _formData['nome'] = value,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 53,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFFE4E5FE), // Cor de fundo roxo
-                        ),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            child: DateTimeFormField(
-                              initialValue: widget.taskId == 1000
-                                  ? DateTime.now()
-                                  : DateFormat("yyyy-MM-dd HH:mm")
-                                      .parse(_formData['horario']),
-                              dateTextStyle: TextStyle(
-                                color: Color(0xFF3B45F5),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                              decoration: const InputDecoration(
-                                labelStyle: TextStyle(
-                                  //height: 0.3,
-                                  color: Color(0xFF6C73F5),
-                                  fontFamily: 'MontSerrat',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
-                                errorStyle: TextStyle(color: Colors.redAccent),
-                                border: InputBorder.none,
-                                suffixIcon: Icon(
-                                  Icons.timer,
-                                  color: Color(0xFF6C73F5),
-                                ),
-                                labelText: 'Horário',
-                              ),
-                              mode: DateTimeFieldPickerMode.time,
-                              autovalidateMode: AutovalidateMode.always,
-                              validator: (e) => (e?.day ?? 0) == 1
-                                  ? 'Please not the first day'
-                                  : null,
-                              onDateSelected: (DateTime value) {
-                                print(value);
-                              },
-                              onSaved: (value) => _formData['horario'] = value,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Text(
-                        'Frequência:',
-                        style: TextStyle(
-                            fontFamily: 'MontSerrat',
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF3B45F5)),
-                      ),
-                      Row(
+    return SingleChildScrollView(
+      child: Center(child: StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return Dialog(
+            child: Container(
+              //width: MediaQuery.of(context).size.width * 0.95,
+              height: MediaQuery.of(context).size.height * 0.85,
+              color: Color.fromARGB(255, 238, 245, 253),
+              child: Padding(
+                padding: const EdgeInsets.all(25),
+                child: Form(
+                  key: _form,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            CheckboxDia(
-                                dia: 0,
-                                setCheckbox: setCheckbox,
-                                initialValue: dias[0]),
-                            CheckboxDia(
-                                dia: 1,
-                                setCheckbox: setCheckbox,
-                                initialValue: dias[1]),
-                            CheckboxDia(
-                                dia: 2,
-                                setCheckbox: setCheckbox,
-                                initialValue: dias[2]),
-                            CheckboxDia(
-                                dia: 3,
-                                setCheckbox: setCheckbox,
-                                initialValue: dias[3]),
-                            CheckboxDia(
-                                dia: 4,
-                                setCheckbox: setCheckbox,
-                                initialValue: dias[4]),
-                            CheckboxDia(
-                                dia: 5,
-                                setCheckbox: setCheckbox,
-                                initialValue: dias[5]),
-                            CheckboxDia(
-                                dia: 6,
-                                setCheckbox: setCheckbox,
-                                initialValue: dias[6]),
-                          ]),
-                      CheckboxListTile(
-                        contentPadding: EdgeInsets.only(left: 10, right: 10),
-                        title: const Text(
-                          'Ativar notificação:',
+                          children: [
+                            Text(
+                              widget.taskId == 1000
+                                  ? 'Adicione uma nova tarefa'
+                                  : 'Editar tarefa',
+                              style: TextStyle(
+                                  fontFamily: 'MontSerrat',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF3B45F5)),
+                            ),
+                            IconButton(
+                                padding: EdgeInsets.all(0),
+                                color: Color(0xFFE87474),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(Icons.close)),
+                          ],
+                        ),
+                        IconSelector(
+                          atualiza: atualizaIcon,
+                          selected: this.selectedIcon,
+                        ),
+                        Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Color(0xFFE4E5FE), // Cor de fundo roxo
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Wrap(
+                                children: [
+                                  TextFormField(
+                                    validator: (value) {
+                                      if (value!.length < 3 ||
+                                          value == null ||
+                                          value.isEmpty) {
+                                        return 'No mínimo 3 caracteres.';
+                                      }
+                                      return null;
+                                    },
+                                    initialValue: widget.taskId == 1000
+                                        ? ''
+                                        : _formData['nome'],
+                                    style: TextStyle(
+                                      color: Color(0xFF3B45F5),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      labelStyle: TextStyle(
+                                        fontFamily: 'MontSerrat',
+                                        color: Color(0xFF6C73F5),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
+                                      labelText: 'Nome',
+                                    ),
+                                    onSaved: (value) =>
+                                        _formData['nome'] = value,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.only(top: 15.0)),
+                        Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Color(0xFFE4E5FE), // Cor de fundo roxo
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 15, right: 15),
+                              child: DateTimeFormField(
+                                initialValue: widget.taskId == 1000
+                                    ? DateTime.now()
+                                    : DateFormat("yyyy-MM-dd HH:mm")
+                                        .parse(_formData['horario']),
+                                dateTextStyle: TextStyle(
+                                  color: Color(0xFF3B45F5),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                                decoration: const InputDecoration(
+                                  labelStyle: TextStyle(
+                                    //height: 0.3,
+                                    color: Color(0xFF6C73F5),
+                                    fontFamily: 'MontSerrat',
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                  ),
+                                  errorStyle:
+                                      TextStyle(color: Colors.redAccent),
+                                  border: InputBorder.none,
+                                  suffixIcon: Icon(
+                                    Icons.timer,
+                                    color: Color(0xFF6C73F5),
+                                  ),
+                                  labelText: 'Horário',
+                                ),
+                                mode: DateTimeFieldPickerMode.time,
+                                autovalidateMode: AutovalidateMode.always,
+                                validator: (e) => (e?.day ?? 0) == 1
+                                    ? 'Please not the first day'
+                                    : null,
+                                onDateSelected: (DateTime value) {
+                                  print(value);
+                                },
+                                onSaved: (value) =>
+                                    _formData['horario'] = value,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          'Frequência:',
                           style: TextStyle(
                               fontFamily: 'MontSerrat',
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF3B45F5)),
                         ),
-                        value: checkNotif,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            checkNotif = value!;
-                          });
-                          print(context);
-                          //atualizaNotif();
-                        },
-                      ),
-                      //Text(checkNotif ? 'True' : 'False'),
-                      ButtonPurpple(
-                          name:
-                              widget.taskId == 1000 ? 'Adicionar' : 'Atualizar',
-                          action: () => {
-                                _form.currentState?.save(),
-                                //tarefas.limparDatabase(),
-                                print(_formData['horario']),
-                                if (widget.taskId == 1000)
-                                  {
-                                    tarefas.addTarefa(
-                                      Tarefa(
-                                        id: 1000,
-                                        nome: _formData['nome'],
-                                        horario:
-                                            _formData['horario'].toString(),
-                                        icon: selectedIcon,
-                                        frequencia: dias,
-                                        notificacao: checkNotif,
-                                      ),
-                                    ),
-                                  }
-                                else
-                                  {
-                                    tarefas.atualizaTarefa(
-                                      Tarefa(
-                                        id: widget.taskId,
-                                        nome: _formData['nome'],
-                                        horario:
-                                            _formData['horario'].toString(),
-                                        icon: selectedIcon,
-                                        //checked: false,
-                                        frequencia: dias,
-                                        notificacao: checkNotif,
-                                      ),
-                                    ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              CheckboxDia(
+                                  dia: 0,
+                                  setCheckbox: setCheckbox,
+                                  initialValue: dias[0]),
+                              CheckboxDia(
+                                  dia: 1,
+                                  setCheckbox: setCheckbox,
+                                  initialValue: dias[1]),
+                              CheckboxDia(
+                                  dia: 2,
+                                  setCheckbox: setCheckbox,
+                                  initialValue: dias[2]),
+                              CheckboxDia(
+                                  dia: 3,
+                                  setCheckbox: setCheckbox,
+                                  initialValue: dias[3]),
+                              CheckboxDia(
+                                  dia: 4,
+                                  setCheckbox: setCheckbox,
+                                  initialValue: dias[4]),
+                              CheckboxDia(
+                                  dia: 5,
+                                  setCheckbox: setCheckbox,
+                                  initialValue: dias[5]),
+                              CheckboxDia(
+                                  dia: 6,
+                                  setCheckbox: setCheckbox,
+                                  initialValue: dias[6]),
+                            ]),
+                        CheckboxListTile(
+                          contentPadding: EdgeInsets.only(left: 10, right: 10),
+                          title: const Text(
+                            'Ativar notificação:',
+                            style: TextStyle(
+                                fontFamily: 'MontSerrat',
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF3B45F5)),
+                          ),
+                          value: checkNotif,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              checkNotif = value!;
+                            });
+                            print(context);
+                            //atualizaNotif();
+                          },
+                        ),
+                        //Text(checkNotif ? 'True' : 'False'),
+                        Row(
+                          children: [
+                            if (widget.taskId != 1000)
+                              IconButton(
+                                  onPressed: () {
+                                    deletarTask(context);
                                   },
-                                Navigator.of(context).pop(),
-                              })
-                    ]),
+                                  icon: Container(
+                                    width: 45,
+                                    height: 54,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 2,
+                                        color:
+                                            Color.fromARGB(255, 196, 197, 197),
+                                      ),
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    child: Icon(Icons.delete),
+                                  )),
+                            ButtonPurpple(
+                                name: widget.taskId == 1000
+                                    ? 'Adicionar'
+                                    : 'Atualizar',
+                                action: () => {
+                                      _form.currentState?.save(),
+                                      //tarefas.limparDatabase(),
+                                      print(_formData['horario']),
+                                      if (_form.currentState!.validate())
+                                        {
+                                          if (widget.taskId == 1000)
+                                            {
+                                              tarefas.addTarefa(
+                                                Tarefa(
+                                                  id: 1000,
+                                                  nome: _formData['nome'],
+                                                  horario: _formData['horario']
+                                                      .toString(),
+                                                  icon: selectedIcon,
+                                                  frequencia: dias,
+                                                  notificacao: checkNotif,
+                                                ),
+                                              ),
+                                            }
+                                          else
+                                            {
+                                              tarefas.atualizaTarefa(
+                                                Tarefa(
+                                                  id: widget.taskId,
+                                                  nome: _formData['nome'],
+                                                  horario: _formData['horario']
+                                                      .toString(),
+                                                  icon: selectedIcon,
+                                                  //checked: false,
+                                                  frequencia: dias,
+                                                  notificacao: checkNotif,
+                                                ),
+                                              ),
+                                            },
+                                          Navigator.of(context).pop(),
+                                        },
+                                    }),
+                          ],
+                        )
+                      ]),
+                ),
               ),
             ),
-          ),
+          );
+        },
+      )),
+    );
+  }
+
+  void deletarTask(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Tem certeza que deseja excluir a tarefa?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Não'),
+            ),
+            TextButton(
+                onPressed: () {
+                  tarefas.deletarTask(widget.taskId);
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: Text('Sim')),
+          ],
         );
       },
-    ));
+    );
   }
 }
 

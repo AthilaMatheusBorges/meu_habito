@@ -144,12 +144,7 @@ tasksForDash(String date)async {
     SELECT * FROM frequencia_tarefas
     WHERE data = ?
   ''', [date]);
-  
-  final List<Map<String, dynamic>> total = await db.rawQuery('''
-    SELECT * FROM tarefas
-  ''');
-  
-  return [total.length - (total.length - feitas.length), total.length];
+  return feitas.length;
 }
 
 
@@ -184,6 +179,20 @@ tasksForDash(String date)async {
 
   int get count {
     return _tarefas.length;
+  }
+
+  void deletarTask(int taskId) async{
+    db = await DB.instance.database;
+    await db.rawDelete('''
+    DELETE FROM frequencia_tarefas
+    WHERE tarefa_id = ?
+  ''', [taskId]);
+    await db.rawDelete('''
+    DELETE FROM tarefas
+    WHERE id = ?
+  ''', [taskId]);
+  notifyListeners();
+  _getTarefas();
   }
 }
 

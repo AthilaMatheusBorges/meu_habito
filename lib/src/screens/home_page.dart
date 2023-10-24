@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     //final Tarefas tarefas_prov = Provider.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       // ignore: prefer_const_constructors
       body: Center(
         child: Column(children: [

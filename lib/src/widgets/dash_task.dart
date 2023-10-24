@@ -17,7 +17,8 @@ class Dash_task extends StatefulWidget {
 
 class _Dash_taskState extends State<Dash_task> {
   late TaskRepository tarefas;
-  List<int> dados = [5,10];
+  double percentual = 0.0;
+  int feitas = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +28,15 @@ class _Dash_taskState extends State<Dash_task> {
     String dataFormatada = DateFormat('yyyy-MM-dd').format(agora);
     
   (() async {
-    List <int> saida = await tarefas.tasksForDash(dataFormatada);
+    int result = await tarefas.tasksForDash(dataFormatada);
     setState(() {
-      dados = saida;
+      if(tarefas.count > 0) percentual = result/tarefas.count;
+      feitas = result;
+
     });
     })();
 
-    double percentual = (dados[0] / dados[1]) * 100;
+    
 
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 15, 0, 30),
@@ -59,9 +62,9 @@ class _Dash_taskState extends State<Dash_task> {
                     animationDuration: 800,
                     radius: 35.0,
                     lineWidth: 6.0,
-                    percent: percentual / 100,
+                    percent: percentual,
                     center: Text(
-                      '${percentual.toStringAsFixed(1)}%',
+                      '${(percentual * 100).toStringAsFixed(1)}%',
                       style: TextStyle(
                         fontFamily: 'MontSerrat',
                         fontSize: 14.0,
@@ -89,7 +92,7 @@ class _Dash_taskState extends State<Dash_task> {
                   Padding(
                     padding: const EdgeInsets.only(top:10),
                     child: Text(
-                      "${dados[0]} de ${dados[1]} completas.",
+                      "${feitas} de ${tarefas.count} completas.",
                       style: TextStyle(
                         fontFamily: 'MontSerrat',
                         fontSize: 14.0,
