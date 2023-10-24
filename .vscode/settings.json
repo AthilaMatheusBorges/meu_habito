@@ -1,4 +1,3 @@
 {
-  "java.configuration.updateBuildConfiguration": "interactive",
-  "dart.projectSearchDepth": 5
+  "java.configuration.updateBuildConfiguration": "interactive"
 }
