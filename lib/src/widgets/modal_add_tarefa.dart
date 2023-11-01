@@ -65,6 +65,7 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
     _formData['id'] = task.id;
     _formData['nome'] = task.nome;
     _formData['horario'] = task.horario;
+    _formData['init'] = task.init;
     selectedIcon = task.icon;
     _formData['frequencia'] = task.frequencia;
     setState(() {
@@ -330,6 +331,8 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
                                                   nome: _formData['nome'],
                                                   horario: _formData['horario']
                                                       .toString(),
+                                                      init: _formData['horario']
+                                                      .toString(),
                                                   icon: selectedIcon,
                                                   frequencia: dias,
                                                   notificacao: checkNotif,
@@ -343,6 +346,8 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
                                                   id: widget.taskId,
                                                   nome: _formData['nome'],
                                                   horario: _formData['horario']
+                                                      .toString(),
+                                                  init: _formData['init']
                                                       .toString(),
                                                   icon: selectedIcon,
                                                   //checked: false,
@@ -410,7 +415,7 @@ class CheckboxDia extends StatefulWidget {
 }
 
 class _CheckboxDiaState extends State<CheckboxDia> {
-  List<String> diasLetra = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+  List<String> diasLetra = ['S', 'T', 'Q', 'Q', 'S', 'S','D'];
   @override
   Widget build(BuildContext context) {
     bool checkValue = widget.initialValue;

@@ -2,6 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_file.dart';
+import 'package:meu_habito/src/screens/calendar_page.dart';
+
+import 'package:provider/provider.dart';
+import '../../repositories/task_repository.dart';
 
 class TopBar extends StatefulWidget {
   const TopBar({super.key});
@@ -11,8 +15,16 @@ class TopBar extends StatefulWidget {
 }
 
 class _TopBarState extends State<TopBar> {
+  bool dbMockado = false;
+  
+  late TaskRepository tarefas;
+
+  
   @override
   Widget build(BuildContext context) {
+
+    tarefas = context.watch<TaskRepository>();
+
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       height: 100.0,
@@ -34,7 +46,7 @@ class _TopBarState extends State<TopBar> {
                 ),
               ),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {tarefas.mockarDB();},
                 icon: Icon(
                   Icons.density_medium_rounded,
                   color: Color(0xFF3B45F5),
@@ -42,7 +54,7 @@ class _TopBarState extends State<TopBar> {
               ),
             ),
             Text(
-              DateFormat("EEEEE, d 'de' MMMM").format(DateTime.now()),
+              DateFormat("EEEEE, d 'de' MMMM",'pt_BR').format(DateTime.now()),
               style: TextStyle(
                 color: Color(0xFFC5C4C4),
                 fontFamily: 'MontSerrat',
@@ -63,7 +75,14 @@ class _TopBarState extends State<TopBar> {
                   ),
                 ),
                 child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CalendarPage(),
+                        ),
+                      );
+                      //tarefas.getTabelaFreq();
+                    },
                     icon: Icon(
                       Icons.calendar_month_rounded,
                       color: Color(0xFF3B45F5),

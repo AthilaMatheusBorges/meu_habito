@@ -6,6 +6,7 @@ import 'package:meu_habito/src/widgets/top_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/tarefa_model.dart';
+import '../../repositories/task_repository.dart';
 import '../widgets/listcards.dart';
 import '../widgets/modal_add_tarefa.dart';
 
@@ -17,9 +18,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
 
   @override
   Widget build(BuildContext context) {
+    
+    
     //final Tarefas tarefas_prov = Provider.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,

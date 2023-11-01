@@ -4,6 +4,7 @@ class Tarefa {
   int id;
   final String nome;
   final String horario;
+  final String init;
   final String icon;
   //bool checked;
   final List<bool> frequencia;
@@ -13,6 +14,7 @@ class Tarefa {
     required this.id,
     required this.nome,
     required this.horario,
+    required this.init,
     required this.icon,
     //required this.checked,
     required this.frequencia,

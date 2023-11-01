@@ -37,6 +37,7 @@ class DB {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nome TEXT,
       horario TEXT,
+      init TEXT,
       icone TEXT,
       notificacao BOOLEAN,
       frequencia TEXT
