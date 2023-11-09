@@ -1,4 +1,4 @@
-<img src="/assets/icons/meuhabito.png" alt="drawing" width="100%" selfAlign="center"/>
+<img src="/assets/icons/meuhabito.png" alt="drawing" selfAlign="center"/>
 
 # meuHábito
 
