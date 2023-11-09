@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meu_habito/models/tarefa_model.dart';
-import 'package:meu_habito/provider/tasks.dart';
 import 'package:meu_habito/repositories/task_repository.dart';
 import 'package:meu_habito/src/widgets/card.dart';
 import 'package:provider/provider.dart';

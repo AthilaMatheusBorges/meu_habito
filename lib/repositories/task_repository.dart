@@ -12,6 +12,7 @@ class TaskRepository extends ChangeNotifier {
   late Database db;
   List<Tarefa> _tarefas = [];
   List _frequencia = [];
+  int pomodoro = 0;
 
   //get saldo => _saldo;
   List<Tarefa> get tarefas => _tarefas;
@@ -23,7 +24,41 @@ class TaskRepository extends ChangeNotifier {
 
   _initRepository() async {
     await _getTarefas();
+    await _getPomodoro();
     // await _getFrequencia();
+  }
+
+  _getPomodoro() async {
+    db = await DB.instance.database;
+    List<Map<String, Object?>> result = await db.query('pomodoro');
+    print(result);
+    if (result.isNotEmpty) {
+      print("Resuldado da consulta DB ${int.parse(result.last['value'].toString())}");
+      pomodoro = int.parse(result.last['value'].toString());
+    }
+
+    print("Pomodoro é igual: ${pomodoro}");
+    notifyListeners();
+  }
+
+  setPomodoro() async {
+    db = await DB.instance.database;
+    int pomo = pomodoro + 1;
+
+    if (pomodoro == 0) {
+      await db.insert('pomodoro', {'value': pomo});
+    } else {
+      await db.update('pomodoro', {'value': pomo});
+    }
+
+  
+    pomodoro = pomo;
+    _getPomodoro();
+    notifyListeners();
+  }
+
+  getPomodoro() {
+    return pomodoro;
   }
 
   _getTarefas() async {
@@ -267,21 +302,21 @@ class TaskRepository extends ChangeNotifier {
 
       saida.putIfAbsent(data, () => percent);
     }
-    
+
     return saida;
   }
 
-  getDatePrimeiraTask(){
+  getDatePrimeiraTask() {
     DateTime antiga = DateTime.now();
 
     _tarefas.forEach((element) {
       DateTime data = DateTime.parse(element.init);
-      if(data.isBefore(antiga)) antiga = data;
+      if (data.isBefore(antiga)) antiga = data;
     });
 
     return antiga;
   }
-  
+
   mockarDB() {
     DateTime dataAtual = DateTime.now();
     final random = Random();
@@ -291,7 +326,7 @@ class TaskRepository extends ChangeNotifier {
         DateTime dataXDiasAntes = dataAtual.add(Duration(days: i));
         String dataFormatada = DateFormat('yyyy-MM-dd').format(dataXDiasAntes);
 
-        if(random.nextBool()) tarefaFeita(element.id, dataFormatada);
+        if (random.nextBool()) tarefaFeita(element.id, dataFormatada);
       }
     });
     notifyListeners();

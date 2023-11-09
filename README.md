@@ -1,16 +1,25 @@
-# meu_habito
+<img src="/assets/icons/meuhabito.png" alt="drawing" width="100%" selfAlign="center"/>
 
-A new Flutter project.
+# meuHábito
 
-## Getting Started
+Uma ferramenta para o auxílio da criação e
+transformação de hábitos.
 
-This project is a starting point for a Flutter application.
+## Funcionalidades
 
-A few resources to get you started if this is your first Flutter project:
+As funcionalidades da aplicação atualmente são:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Criar tarefa;
+- Finalizar tarefa;
+- Remover tarefa;
+- Visualizar tarefas;
+- Editar tarefa;
+- Método Pomodoro.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Branches
+
+A versão apresentada no Trabalho de Conclusão de Curso se encontra na branch 'master'.
+
+## Instalação
+
+O aplicativo pode ser baixado e instalado em sistemas Android (até o momento) através do APK que se encontra na pasta APK do projeto. 

@@ -33,15 +33,11 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  datetime_picker_formfield: ^2.0.1
   sqflite: ^2.3.0
   percent_indicator: ^4.0.1
   path: ^1.8.3
   provider:
   date_field: ^3.0.5
-  path_provider :
-  hive_flutter: ^1.1.0
   table_calendar: ^3.0.0
 
 dev_dependencies:
@@ -78,7 +74,8 @@ flutter:
     - assets/icons/observacao-de-passaros.png
     - assets/icons/pintura.png
     - assets/icons/reparo-do-carro.png
-    - assets/icons/logo.png
+    - assets/icons/meuhabito.png
+    - assets/icons/tomate.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

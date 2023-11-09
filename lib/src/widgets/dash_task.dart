@@ -1,11 +1,8 @@
-//import 'dart:ffi';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import '../../models/tarefa_model.dart';
 import '../../repositories/task_repository.dart';
 
 class Dash_task extends StatefulWidget {
@@ -81,10 +78,12 @@ class _Dash_taskState extends State<Dash_task> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Suas tarefas estão \nquase acabando!',
-                    style: TextStyle(
+                    percentual == 0.0 ?
+                     'Comece agora \nsuas tarefas'
+                    :'Suas tarefas estão \nquase acabando!',
+                    style: const TextStyle(
                       fontFamily: 'MontSerrat',
-                      fontSize: 12.0,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFFFFFFFF),
                     ),

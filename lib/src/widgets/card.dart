@@ -6,7 +6,6 @@ import 'package:meu_habito/repositories/task_repository.dart';
 import 'package:meu_habito/src/widgets/modal_add_tarefa.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/tasks.dart';
 
 class MyCard extends StatefulWidget {
   const MyCard({super.key, required this.tarefa, required this.edit});

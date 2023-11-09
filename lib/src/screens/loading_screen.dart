@@ -20,13 +20,13 @@ class LoadingScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/icons/logo.png'),
-          Text('meuHábito', style: TextStyle(color: Color(0xFF3B45F5), fontFamily: 'Lilita One', fontSize: 40.0,decoration: TextDecoration.none,)),
+          Image.asset('assets/icons/meuhabito.png'),
           Padding(
             padding: const EdgeInsets.only(top: 40.0),
-            child: CircularProgressIndicator(color: Color(0xFF3B45F5),),
+            child: CircularProgressIndicator(
+              color: Color(0xFF3B45F5),
+            ),
           )
-
         ],
       ),
     );

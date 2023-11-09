@@ -27,6 +27,7 @@ class DB {
   _onCreate(db, versao) async {
     await db.execute(_tarefas);
     await db.execute(_dias);
+    await db.execute(_pomodoro);
     print('db criado');
     // await db.execute(_historico);
     // await db.insert('conta', {'saldo': 0});
@@ -51,6 +52,10 @@ class DB {
     data DATE,
     FOREIGN KEY (tarefa_id) REFERENCES tarefas (id)
   )
+''';
+  
+  String get _pomodoro => '''
+  CREATE TABLE pomodoro(value INTEGER)
 ''';
 
   

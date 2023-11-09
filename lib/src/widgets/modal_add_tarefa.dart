@@ -1,19 +1,14 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:date_field/date_field.dart';
-
 import 'package:intl/intl.dart';
 import 'package:meu_habito/models/tarefa_model.dart';
 import 'package:meu_habito/repositories/task_repository.dart';
 import 'package:meu_habito/src/widgets/button_pupple.dart';
-
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:meu_habito/src/widgets/icon_selector.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/tasks.dart';
 
 /// Flutter code sample for [showModalBottomSheet].
 ///
@@ -294,6 +289,7 @@ class _ModalAddTarefaState extends State<ModalAddTarefa> {
                         ),
                         //Text(checkNotif ? 'True' : 'False'),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             if (widget.taskId != 1000)
                               IconButton(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_file.dart';
 import 'package:meu_habito/src/screens/calendar_page.dart';
+import 'package:meu_habito/src/widgets/menu_lateral.dart';
 
 import 'package:provider/provider.dart';
 import '../../repositories/task_repository.dart';
@@ -46,7 +47,13 @@ class _TopBarState extends State<TopBar> {
                 ),
               ),
               child: IconButton(
-                onPressed: () {tarefas.mockarDB();},
+                onPressed: () {
+                  showDialog(
+                  context: context,
+                  builder: (BuildContext dialogContext) => NavDrawer(),
+                );
+                }
+                ,
                 icon: Icon(
                   Icons.density_medium_rounded,
                   color: Color(0xFF3B45F5),
